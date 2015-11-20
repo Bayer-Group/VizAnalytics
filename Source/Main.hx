@@ -1,6 +1,7 @@
 package;
 
 
+import layouts.Align;
 import flash.geom.Rectangle;
 import utility.Shape;
 import openfl.display.*;
@@ -30,6 +31,23 @@ class Main extends Sprite {
 		};
 		return list;
 	}
+
+  private function getDifSzRcts():Array<DisplayObject> {
+		var list:Array<DisplayObject> = [
+			Shape.rect(20,20),
+			Shape.rect(25,20),
+			Shape.rect(30,25),
+			Shape.rect(30,30)
+		];
+		for (r in list){
+			var g = cast(r,Sprite).graphics;
+			Actuate.transform(g, 5).color(0x00ff00, 2);
+//      g.lineStyle(0,0x000000);
+//			g.beginFill(0x006666);
+		}
+		return list;
+
+	}
 	public function new () {
 		
 		super ();
@@ -42,10 +60,20 @@ class Main extends Sprite {
     var scale:Dynamic = new Scale(1,100,0,hBox.width);
     var xAxis = new XAxis(scale);
 
+		var bChart = new HBox();
+		bChart.addChildren(Align.bottom(getDifSzRcts()));
+
     var vChildren:Array<DisplayObject> = cast [];
     vChildren.push(hBox);
+
+		vChildren.push(bChart);
     vChildren.push(xAxis);
+
+
     vBox.addChildren(vChildren);
+
+
+
 
 
 		var bb:Rectangle = vBox.getBoundingBox();

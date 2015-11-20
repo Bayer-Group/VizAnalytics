@@ -4,6 +4,7 @@ import flash.display.Sprite;
 import flash.display.DisplayObject;
 import container.*;
 
+using utility.Style;
 
 class Shape {
 
@@ -17,6 +18,7 @@ class Shape {
   static public function rect(width:Float,height:Float):Sprite{
     var r:Sprite = new Sprite();
     r.graphics.lineStyle(1,0x000000);
+//    r.graphics.beginFill(0x000550);
     r.graphics.drawRect(0,0,width,height);
 //    r.graphics.endFill();
     return r;
