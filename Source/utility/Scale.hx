@@ -21,22 +21,23 @@ class Scale {
     public function getRangeMin() :Float {return rMin;}
     public function getRangeMax() :Float {return rMax;}
     public function getDomain()   :Array<Float> {return [dMin,dMax];}
+
     public function getRange()    :Array<Float> {return [rMin,rMax];}
 
     public function linear(x:Float):Float{return calculate(x);}
 
     public function log(x:Float):Float{return calculate(Math.log(x));}
 
-//    public function getBetweenColourByPercent(value:Float = 0.5 /* 0-1 */, highColor:Int = 0xFFFFFF, lowColor:Int = 0x000000):Int {
-//      var r:Int = highColor >> 16;
-//      var g:Int = highColor >> 8 & 0xFF;
-//      var b:Int = highColor & 0xFF;
-//
-//      r += ((lowColor >> 16) - r) * value;
-//      g += ((lowColor >> 8 & 0xFF) - g) * value;
-//      b += ((lowColor & 0xFF) - b) * value;
-//
-//      return (r << 16 | g << 8 | b);
-//    }
+    public function getBetweenColourByPercent(value:Float = 0.5 /* 0-1 */, highColor:UInt = 0xFFFFFF, lowColor:UInt = 0x000000):UInt {
+      var r:Float = highColor >> 16;
+      var g:Float = highColor >> 8 & 0xFF;
+      var b:Float = highColor & 0xFF;
+
+      r += ((lowColor >> 16) - r) * value;
+      g += ((lowColor >> 8 & 0xFF) - g) * value;
+      b += ((lowColor & 0xFF) - b) * value;
+
+      return (Std.int(r) << 16 | Std.int(g) << 8 | Std.int(b));
+    }
 
 }

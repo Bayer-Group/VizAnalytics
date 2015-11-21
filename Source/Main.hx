@@ -1,6 +1,8 @@
 package;
 
 
+import StringTools;
+import js.html.Rect;
 import layouts.Align;
 import flash.geom.Rectangle;
 import utility.Shape;
@@ -13,19 +15,19 @@ import openfl.geom.ColorTransform;
 
 
 
-
 class Main extends Sprite {
 	
 	private function makeList():Array<Sprite>{
 		var list:Array<Sprite> = [];
-    var scale:Dynamic = new Scale(1,10,0,1);
-
+		var scale = new Scale(1,2,3,4);
 		for (i in 0...10){
-      var s:Sprite = Shape.circle(20.0);
+			var style = new Style();
+			style.beginFill(scale.getBetweenColourByPercent(i*0.1,0x0000ff,0x00ff00));
+      var s:Sprite = Shape.circle(20.0,style);
       var g = s.graphics;
 //      s.graphics.beginFill(scale.getBetweenColourByPercent(i, 0xff0000,0x00ff00));
 
-      Actuate.transform(s, 5).color(0xff0000, 2);
+//      Actuate.transform(s, 5).color(0xff0000, 2);
 //      s.transform.colorTransform = new ColorTransform(1, 0, 0, 1, 0, 20, 0, 0);
 			list.push(s);
 		};
@@ -34,17 +36,20 @@ class Main extends Sprite {
 
   private function getDifSzRcts():Array<DisplayObject> {
 		var list:Array<DisplayObject> = [
-			Shape.rect(20,20),
-			Shape.rect(25,20),
-			Shape.rect(30,25),
-			Shape.rect(30,30)
+			Shape.rect(50,70),
+			Shape.rect(90,20),
+			Shape.rect(60,40),
+			Shape.rect(50,50)
 		];
-		for (r in list){
-			var g = cast(r,Sprite).graphics;
-			Actuate.transform(g, 5).color(0x00ff00, 2);
-//      g.lineStyle(0,0x000000);
-//			g.beginFill(0x006666);
-		}
+//		for (r in list){
+//			var g = cast(r,Sprite).graphics;
+//			var opts = Actuate.transform(g, 5).color(0x00ff00, 2);
+//
+//
+//
+////      g.lineStyle(0,0x000000);
+////			g.beginFill(0x006666);
+//		}
 		return list;
 
 	}
@@ -53,35 +58,41 @@ class Main extends Sprite {
 		super ();
 
 		var hBox:HBox = new HBox();
+		hBox.addChildren(Align.middle(getDifSzRcts()));
 		var circles:Array<DisplayObject> = cast makeList();
-    hBox.addChildren(circles);
+		var hBox1:HBox = new HBox();
+    hBox1.addChildren(circles);
+//
+//    var vBox:VBox = new VBox();
+//    var scale:Dynamic = new Scale(1,100,0,hBox.width);
+//    var xAxis = new XAxis(scale);
+//
+//		var bChart = new HBox();
+//		bChart.addChildren(Align.bottom(getDifSzRcts()));
+//
+//    var vChildren:Array<DisplayObject> = cast [];
+//    vChildren.push(hBox);
+//
+//		vChildren.push(bChart);
+//    vChildren.push(xAxis);
+//
+//
+//    vBox.addChildren(vChildren);
+//
+//
+//
+//
+//
+		var bb:Rectangle = hBox.getBoundingBox();
+//		addChild(vBox);
 
-    var vBox:VBox = new VBox();
-    var scale:Dynamic = new Scale(1,100,0,hBox.width);
-    var xAxis = new XAxis(scale);
+		var vBox:VBox = new VBox();
+		vBox.addChildren([hBox,hBox1]);
+		addChild(Shape.bounds(bb.width,bb.height));
+    addChild(vBox);
+		var cc:Rectangle = vBox.getBoundingBox();
+		addChild(Shape.bounds(cc.width,cc.height));
 
-		var bChart = new HBox();
-		bChart.addChildren(Align.bottom(getDifSzRcts()));
-
-    var vChildren:Array<DisplayObject> = cast [];
-    vChildren.push(hBox);
-
-		vChildren.push(bChart);
-    vChildren.push(xAxis);
-
-
-    vBox.addChildren(vChildren);
-
-
-
-
-
-		var bb:Rectangle = vBox.getBoundingBox();
-		addChild(vBox);
-
-		addChild(Shape.rect(bb.width,bb.height));
-
-		
 	}
 	
 	

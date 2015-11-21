@@ -1,12 +1,22 @@
 package utility;
-import flash.display.Sprite;
-import openfl.display.DisplayObject;
-import openfl.display.Graphics;
-class Style {
-  public static function style(d:DisplayObject,color:Int,alpha:Float = 1){
 
-    cast(d,Sprite).graphics.beginFill(color,alpha);
-    return d;
+import haxe.ds.StringMap;
+class Style extends StringMap<Array<Dynamic>> {
+
+  public function new () {
+    super();
   }
+  public function beginFill(c:UInt):Style{
+     set("beginFill",[c]);
+     return this;
+  }
+
+//  public function lineStyle(thickness:Float, color:UInt, alpha:Float, pixelHinting:Bool, scaleMode:LineScaleMode, caps:CapsStyle, joints:JointStyle, miterLimit:Float):Void
+  public function lineStyle(thickness:Float, color:UInt):Style{
+    set("lineStyle",[thickness,color]);
+    return this;
+  }
+
+
 
 }
