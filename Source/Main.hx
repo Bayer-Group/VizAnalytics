@@ -8,7 +8,8 @@ import flash.geom.Rectangle;
 import utility.Shape;
 import openfl.display.*;
 import container.*;
-import utility.*;
+
+
 import axis.XAxis;
 import motion.Actuate;
 import openfl.geom.ColorTransform;
@@ -19,9 +20,9 @@ class Main extends Sprite {
 	
 	private function makeList():Array<Sprite>{
 		var list:Array<Sprite> = [];
-		var scale = new Scale(1,2,3,4);
+		var scale = new utility.Scale(1,2,3,4);
 		for (i in 0...10){
-			var style = new Style();
+			var style = new utility.Style();
 			style.beginFill(scale.getBetweenColourByPercent(i*0.1,0x0000ff,0x00ff00));
       var s:Sprite = Shape.circle(20.0,style);
       var g = s.graphics;
@@ -93,6 +94,16 @@ class Main extends Sprite {
 		var cc:Rectangle = vBox.getBoundingBox();
 		addChild(Shape.bounds(cc.width,cc.height));
 
+		var scale = scale.Scale.linear().domain([1,10]).range([10,20]);
+		var scale2 = scale.invert();
+    trace("normal :"+scale);
+		trace("invert :"+scale2);
+		for (i in 1...10){
+			trace("UP :"+scale.value(i));
+		}
+		for (i in 1...10){
+			trace("DN :"+scale2.value(i));
+		}
 	}
 	
 	

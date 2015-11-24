@@ -4,13 +4,15 @@ class Scale {
   var r:Array<Dynamic> = [1,100];
   var s:Dynamic;
   var f:Dynamic;
+
+
   static var linearFunc = function(v:Dynamic):Dynamic{return v;};
   static var logrFunc   = function(v:Dynamic):Dynamic{return Math.log(v);};
   static var expFunc    = function(v:Dynamic):Dynamic{return Math.exp(v);};
 
 
   private function new(func:Dynamic->Dynamic) {
-    f = (func == null)? Scale.linear : func;
+    f = (func == null)? Scale.linearFunc : func;
     calcSlope();
   }
 
@@ -34,9 +36,8 @@ class Scale {
   public function invert():Scale {
     var tmpR = r;
     var tmpD = d;
-    var inv = new Scale();
+    var inv:Scale = new Scale(f);
     inv = inv.domain(r).domain(d);
-    trace("HAHAHAHA invert :"+inv);
     return inv;
   }
   public function toString() {
