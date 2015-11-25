@@ -1,10 +1,12 @@
 package scale;
+
 class Scale {
   var d:Array<Dynamic> = [1,100];
   var r:Array<Dynamic> = [1,100];
+
   var s:Dynamic;
   var f:Dynamic;
-
+  var c:Bool = true;
 
   static var linearFunc = function(v:Dynamic):Dynamic{return v;};
   static var logrFunc   = function(v:Dynamic):Dynamic{return Math.log(v);};
@@ -15,10 +17,18 @@ class Scale {
     f = (func == null)? Scale.linearFunc : func;
     calcSlope();
   }
+  public function getRange()  {return r;}
+  public function getDomain() {return d;}
 
-  public function value(input:Dynamic):Dynamic {return s * f(input) + d[0];}
+  public function value(input:Dynamic):Dynamic {
 
-  private function calcSlope(){s = (d[1]- d[0]) /  (r[1] - r[0]);}
+    var val:Dynamic  = s * f(input) + r[0];
+    return if (c == true) (val > r[1])? r[1]:(val < r[0])? r[0]:val;
+    else val;
+
+  }
+
+  private function calcSlope(){s = (r[1]- r[0]) /  (d[1] - d[0]);}
 
   public function domain(domain:Array<Dynamic>):Scale {
     d = domain;
@@ -37,11 +47,14 @@ class Scale {
     var tmpR = r;
     var tmpD = d;
     var inv:Scale = new Scale(f);
-    inv = inv.domain(r).domain(d);
-    return inv;
+    return inv.domain(r).domain(d);
+  }
+  public function clamp(flag:Bool):Scale {
+    c = flag;
+    return this;
   }
   public function toString() {
-    trace("***\nScale  r: ["+r+"] d: ["+d+"]/n***");
+    trace("\n***\nScale  r: "+r+" d: "+d+"\n***");
   }
   public static function linear():Scale {return new Scale(linearFunc);}
   public static function log():Scale {return new Scale(logrFunc);}
