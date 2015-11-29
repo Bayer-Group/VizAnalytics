@@ -27,13 +27,12 @@ class Bounds {
       }
     }
 
-    trace("child COUNT "+children.length);
     return children;
 
   }
   public static function getRelBoundingBox(child:DisplayObject):Rectangle{
     var className = getWellKnownTypeName(child);
-    trace(className);
+
     var childBB:Rectangle = new Rectangle();
     switch (className){
 

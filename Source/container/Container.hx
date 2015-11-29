@@ -3,14 +3,9 @@ import flash.geom.Point;
 import flash.text.TextField;
 import axis.Axis;
 import flash.geom.Rectangle;
-import flash.geom.Rectangle;
 import flash.display.Sprite;
 import flash.display.DisplayObject;
-import flash.events.Event;
-import openfl.geom.Rectangle;
 import utility.Shape;
-import Type;
-import openfl.text.TextField;
 
 class Container extends flash.display.Sprite {
   private var debug:Sprite;
@@ -81,15 +76,15 @@ class Container extends flash.display.Sprite {
     addChild(debug);
   }
 
-  override public function addChild(obj:DisplayObject):DisplayObject {
+//  this should be private
+  public override function addChild(obj:DisplayObject):DisplayObject {
     return super.addChild(obj);
   }
 
-  public function addChildren(children:Array<DisplayObject>):Void{
+  public function addChildren(children:Array<DisplayObject>):Container{
     Lambda.iter(children, function(d:DisplayObject){
       addChild(d);
     });
-
-//    updateDebug();
+    return this;
   }
 }

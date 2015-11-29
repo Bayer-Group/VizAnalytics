@@ -12,13 +12,11 @@ class Color extends Scale {
   public override function value(input:Dynamic):Dynamic {
     var value = super.value(input);
     var perc  = percent.value(input) / 100;
-    trace("color input value, perc, color"+ input,value,perc,getBetweenColourByPercent(perc,colorOne,colorTwo));
     return getBetweenColourByPercent(perc,colorOne,colorTwo);
 
   }
   public override function domain(domain:Array<Dynamic>):Scale {
     this.percent.domain(domain);
-    trace("\n\n\n percent :"+this.percent);
     return super.domain(domain);
   }
 
@@ -40,7 +38,7 @@ class Color extends Scale {
     return (Std.int(r) << 16 | Std.int(g) << 8 | Std.int(b));
   }
   public override function toString() {
-    trace("\n***\nColor Scale  r: "+r+" d: "+d+"\n***");
+    return "\n***\nColor Scale  r: "+r+" d: "+d+"\n***";
   }
   public static override function linear():Color {return new Color(Scale.linearFunc);}
   public static override function log():Color {return new Color(Scale.logrFunc);}

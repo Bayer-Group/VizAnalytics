@@ -23,9 +23,7 @@ class Align {
       mem.height = Math.max(cur.height,mem.height);
       return mem;
     },new Rectangle());
-    trace("max bounds for alignment :"+maxBounds);
     for (child in children){
-      trace("pre :",Bounds.getRelBoundingBox(child));
       child.y = switch(v){
           case TOP: 0;
           case MIDDLE: maxBounds.height/2 - child.height/2;
@@ -38,7 +36,7 @@ class Align {
         case RIGHT : maxBounds.width - child.width;
         case NONE  : child.x;
       }
-      trace("pos :",Bounds.getRelBoundingBox(child));
+
     }
 
     return children;

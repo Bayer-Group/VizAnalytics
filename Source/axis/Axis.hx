@@ -1,11 +1,8 @@
 package axis;
 
 import container.Container;
-import container.Container;
-import flash.text.TextField;
-import flash.geom.Rectangle;
-import utility.Scale;
-import flash.display.Sprite;
+import scale.Scale;
+
 enum AxisPosition {
   top;
   bottem;

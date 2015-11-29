@@ -19,14 +19,17 @@ import openfl.geom.ColorTransform;
 
 
 class Main extends Sprite {
+	private function makeHisto():Array<Sprite>{
+
+  }
 
 	private function makeList():Array<Sprite>{
 		var list:Array<Sprite> = [];
 		var scale  = Scale.log().range([1,50]).domain([0,10]);
+		trace("ticks :"+scale.ticks());
 		var color  = Color.linear().range([0xff,0x00ff00]).domain([0,10]);
 		for (i in 0...10){
 			var style = new utility.Style();
-			trace(i, scale.value(i));
 			style.beginFill(color.value(i));
 			var s:Sprite = Shape.rect(20,scale.value(i),style);
 			var g = s.graphics;
@@ -42,15 +45,7 @@ class Main extends Sprite {
 			Shape.rect(60,40),
 			Shape.rect(50,50)
 		];
-//		for (r in list){
-//			var g = cast(r,Sprite).graphics;
-//			var opts = Actuate.transform(g, 5).color(0x00ff00, 2);
-//
-//
-//
-////      g.lineStyle(0,0x000000);
-////			g.beginFill(0x006666);
-//		}
+
 		return list;
 
 	}
@@ -63,32 +58,13 @@ class Main extends Sprite {
 		var circles:Array<DisplayObject> = cast makeList();
 		var hBox1:HBox = new HBox();
 		hBox1.addChildren(Align.bottom(circles));
-//
-//    var vBox:VBox = new VBox();
-//    var scale:Dynamic = new Scale(1,100,0,hBox.width);
-//    var xAxis = new XAxis(scale);
-//
-//		var bChart = new HBox();
-//		bChart.addChildren(Align.bottom(getDifSzRcts()));
-//
-//    var vChildren:Array<DisplayObject> = cast [];
-//    vChildren.push(hBox);
-//
-//		vChildren.push(bChart);
-//    vChildren.push(xAxis);
-//
-//
-//    vBox.addChildren(vChildren);
-//
-//
-//
-//
-//
-		var bb:Rectangle = hBox.getBoundingBox();
-//		addChild(vBox);
+		var bb:Rectangle = hBox1.getBoundingBox();
+		
+		var axis = new XAxis(Scale.linear().range([0,bb.width]));
+
 
 		var vBox:VBox = new VBox();
-		vBox.addChildren([hBox,hBox1]);
+		vBox.addChildren([hBox,hBox1,axis]);
 		addChild(Shape.bounds(bb.width,bb.height));
 		addChild(vBox);
 		var cc:Rectangle = vBox.getBoundingBox();

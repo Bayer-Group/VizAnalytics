@@ -53,8 +53,20 @@ class Scale {
     c = flag;
     return this;
   }
+
+  public function ticks(count:Int = 10):Array<Dynamic> {
+    var len = r[1] - r[0];
+    var interval = Math.floor(len / count);
+    var tickArr = [];
+    for (i in 0...10){
+      var position = i * interval;
+      if (position <= r[1]) tickArr.push(position);
+    }
+    return tickArr;
+  }
+
   public function toString() {
-    trace("\n***\nScale  r: "+r+" d: "+d+"\n***");
+    return "\n***\nScale  r: "+r+" d: "+d+"\n***";
   }
   public static function linear():Scale {return new Scale(linearFunc);}
   public static function log():Scale {return new Scale(logrFunc);}
