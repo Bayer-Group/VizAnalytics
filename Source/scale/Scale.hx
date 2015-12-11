@@ -22,7 +22,7 @@ class Scale {
 
   public function value(input:Dynamic):Dynamic {
 
-    var val:Dynamic  = s * f(input) + r[0];
+    var val:Dynamic  = s * f(input);
     return if (c == true) (val > r[1])? r[1]:(val < r[0])? r[0]:val;
     else val;
 
