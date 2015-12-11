@@ -1,0 +1,4 @@
+-neko ../Test/maintest.n
+-main MainTest
+-cmd neko ../Test/maintest.n
+
