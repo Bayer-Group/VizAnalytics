@@ -1,4 +1,6 @@
 -neko ../Test/maintest.n
 -main MainTest
+-lib openfl
+-lib lime
 -cmd neko ../Test/maintest.n
 
