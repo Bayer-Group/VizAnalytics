@@ -1,13 +1,13 @@
 package container;
-import flash.geom.Point;
-import flash.text.TextField;
+import openfl.geom.Point;
+import openfl.text.TextField;
 import axis.Axis;
-import flash.geom.Rectangle;
-import flash.display.Sprite;
-import flash.display.DisplayObject;
+import openfl.geom.Rectangle;
+import openfl.display.Sprite;
+import openfl.display.DisplayObject;
 import utility.Shape;
 
-class Container extends flash.display.Sprite {
+class Container extends openfl.display.Sprite {
   private var debug:Sprite;
 
   public function new() {

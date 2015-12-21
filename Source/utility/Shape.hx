@@ -1,10 +1,10 @@
 package utility;
 
-import flash.display.Graphics;
+import openfl.display.Graphics;
 import openfl.display.Sprite;
 using utility.Style;
-import haxe.ds.StringMap;
-//using com.sandinh.TipTools;
+
+
 class Shape {
   static private function RECT_STYLE():Style{
     var s = new Style();

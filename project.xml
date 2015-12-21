@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta title="VizAnalytics" package="com.sample.vizanalytics" version="1.0.0" company="Company Name" />
-	<app main="Main" path="Export" file="VizAnalytics" />
+	<meta title="VizAnalytics" package="com.sample.vizanalytics" version="1.0.0" company="Monsanto" />
+	<app main="MainTest" path="Export" file="VizAnalytics" />
 	
 	<source path="Source" />
 	

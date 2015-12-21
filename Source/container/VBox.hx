@@ -1,5 +1,5 @@
 package container;
-import flash.display.DisplayObject;
+import openfl.display.DisplayObject;
 class VBox extends Container {
 
   private var spacing: Float = 10.0;

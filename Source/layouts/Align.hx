@@ -1,8 +1,7 @@
 package layouts;
 import openfl.geom.Rectangle;
 import utility.Bounds;
-import utility.Bounds;
-import flash.display.DisplayObject;
+import openfl.display.DisplayObject;
 enum VAlign {
   TOP;
   MIDDLE;

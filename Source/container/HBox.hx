@@ -1,5 +1,5 @@
 package container;
-import flash.display.DisplayObject;
+import openfl.display.DisplayObject;
 
 import motion.Actuate;
 class HBox extends Container {

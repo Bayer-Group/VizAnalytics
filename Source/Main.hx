@@ -3,8 +3,8 @@ package;
 
 import scale.Color;
 import scale.Scale;
-import StringTools;
-import js.html.Rect;
+
+
 import layouts.Align;
 import flash.geom.Rectangle;
 import utility.Shape;
