@@ -2,7 +2,7 @@
 <project>
 	
 	<meta title="VizAnalytics" package="com.sample.vizanalytics" version="1.0.0" company="Monsanto" />
-	<app main="MainTest" path="Export" file="VizAnalytics" />
+	<app main="Main" path="Export" file="VizAnalytics" />
 	
 	<source path="Source" />
 	
