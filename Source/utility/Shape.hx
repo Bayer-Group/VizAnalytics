@@ -1,5 +1,8 @@
 package utility;
 
+import openfl.display.DisplayObject;
+import openfl.text.TextField;
+import openfl.text.TextFormat;
 import openfl.display.Graphics;
 import openfl.display.Sprite;
 using utility.Style;
@@ -61,6 +64,16 @@ class Shape {
     l.y = 0;
 
     return l;
+  }
+
+  static public function text(value:String = "none given",?style:TextFormat):DisplayObject{
+    var text = new TextField();
+
+//    format.align = TextFormatAlign;
+    var style = (style == null)? new TextFormat("Verdana",14, 0x445500): style;
+//    text.defaultTextFormat = style;
+    text.text = value;
+    return text;
   }
 
 
