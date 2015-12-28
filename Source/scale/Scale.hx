@@ -6,41 +6,90 @@ class Scale {
 
   var s:Dynamic;
   var f:Dynamic;
-  var c:Bool = true;
+  var c:Bool = false;
+  var input:Dynamic->Dynamic;
+  var output:Dynamic->Dynamic;
 
   static var linearFunc = function(v:Dynamic):Dynamic{return v;};
   static var logrFunc   = function(v:Dynamic):Dynamic{return Math.log(v);};
   static var expFunc    = function(v:Dynamic):Dynamic{return Math.exp(v);};
 
+  private function uninterpolateNumber(a:Dynamic, b:Dynamic):Dynamic -> Dynamic {
+    b = (b - a)> 0 ? 1 / (b - a) : 0;
+    return function(x:Dynamic) {
+      return (x - a) * b;
+    };
+  }
 
+  private function uninterpolateClamp(a:Dynamic, b:Dynamic):Dynamic -> Dynamic {
+    b = (b - a)> 0 ? 1 / (b - a) : 0;
+    return function(x:Dynamic) {
+      return Math.max(0, Math.min(1, (x - a) / b));
+    };
+  }
+
+  private function interpolateNumber (a:Dynamic, b:Dynamic):Dynamic -> Dynamic {
+    b -= a;
+    return function(t:Dynamic) {
+      return a + b * t;
+    };
+  }
+
+
+  private function scale_bilinear(domain:Array<Dynamic>, range:Array<Dynamic>,
+                                     uninterpolate:Dynamic -> Dynamic -> Dynamic,
+                                     interpolate:Dynamic -> Dynamic -> Dynamic):Dynamic->Dynamic {
+    var u = uninterpolate(d[0], d[1]);
+    var i = interpolate(r[0], r[1]);
+    return function(x) {
+
+      return i(u(x));
+    };
+  }
+
+
+  private function scale(x:Dynamic):Dynamic->Dynamic {
+    return output(x);
+  }
+
+  private function rescale():Dynamic->Dynamic {
+    var linear = scale_bilinear;
+    var uninterpolate = (c)? uninterpolateClamp : uninterpolateNumber;
+    output = scale_bilinear(d, r, uninterpolate, interpolateNumber);
+    input = scale_bilinear(r, d, uninterpolate, interpolateNumber);
+    return scale;
+  }
   private function new(func:Dynamic->Dynamic) {
     f = (func == null)? Scale.linearFunc : func;
-    calcSlope();
+    rescale();
   }
   public function getRange()  {return r;}
   public function getDomain() {return d;}
 
   public function value(input:Dynamic):Dynamic {
 
-    var val:Dynamic  = s * f(input);
-    return if (c == true) (val > r[1])? r[1]:(val < r[0])? r[0]:val;
-    else val;
+    return output(input);
 
   }
 
-  private function calcSlope(){s = (r[1]- r[0]) /  (d[1] - d[0]);}
+
 
   public function domain(domain:Array<Dynamic>):Scale {
     d = domain;
     d.sort(function(a,b){return (a < b)? -1 : ((a > b)?  1 : 0);});
-    calcSlope();
+    rescale();
     return this;
   }
   public function range(range:Array<Dynamic>):Scale {
+
     r = range;
     r.sort(function(a,b){return (a < b)? -1 : ((a > b)?  1 : 0);});
-    calcSlope();
+    rescale();
     return this;
+  }
+
+  public function d3():Dynamic->Dynamic{
+    return rescale();
   }
 
   public function invert():Scale {
@@ -51,6 +100,7 @@ class Scale {
   }
   public function clamp(flag:Bool):Scale {
     c = flag;
+    rescale();
     return this;
   }
 
@@ -63,6 +113,8 @@ class Scale {
       if (position <= r[1]) tickArr.push(position);
     }
     return tickArr;
+  }
+  public function test(domain:Array<Int>){
   }
 
   public function toString() {
