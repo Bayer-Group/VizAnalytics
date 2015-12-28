@@ -20,11 +20,9 @@ class XAxis extends Axis{
     var range = this.scale.getRange();
     var length = range[1] - range[0];
     var line = Shape.line(length, 0);
-    var label = new TextField();
-    label.embedFonts = true;
-    var tf = new TextFormat("Verdana");
-    label.defaultTextFormat = tf;
-    label.text = "Hello World";
+
+    var label = Shape.text("Sucker");
+
     trace("line width: "+line.width);
     var paddedLabel = Shape.rect(length,Bounds.getRelBoundingBox(label).height);
     Align.centerMiddle([paddedLabel,label]);
