@@ -39,10 +39,9 @@ class Scale {
   private function scale_bilinear(domain:Array<Dynamic>, range:Array<Dynamic>,
                                      uninterpolate:Dynamic -> Dynamic -> Dynamic,
                                      interpolate:Dynamic -> Dynamic -> Dynamic):Dynamic->Dynamic {
-    var u = uninterpolate(d[0], d[1]);
-    var i = interpolate(r[0], r[1]);
+    var u = uninterpolate(domain[0], domain[1]);
+    var i = interpolate(range[0], range[1]);
     return function(x) {
-
       return i(u(x));
     };
   }
@@ -88,15 +87,9 @@ class Scale {
     return this;
   }
 
-  public function d3():Dynamic->Dynamic{
-    return rescale();
-  }
 
-  public function invert():Scale {
-    var tmpR = r;
-    var tmpD = d;
-    var inv:Scale = new Scale(f);
-    return inv.domain(r).domain(d);
+  public function invert(x:Dynamic):Dynamic {
+    return input(x);
   }
   public function clamp(flag:Bool):Scale {
     c = flag;
