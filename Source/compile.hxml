@@ -3,4 +3,8 @@
 -lib openfl
 -lib lime
 -cmd neko ../Test/maintest.n
-
+--next
+-js ../Test/maintest.js
+-main MainTest
+-lib phantomjs
+-cmd phantomjs ../Test/maintest.js
