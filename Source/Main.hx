@@ -1,6 +1,9 @@
 package;
 
 
+
+
+
 import scale.Color;
 import scale.Scale;
 
@@ -13,8 +16,7 @@ import container.*;
 
 
 import axis.XAxis;
-import motion.Actuate;
-import openfl.geom.ColorTransform;
+
 
 
 
@@ -22,9 +24,8 @@ class Main extends Sprite {
 
   private function makeList():Array<Sprite>{
     var list:Array<Sprite> = [];
-    var scale  = Scale.log().range([1,50]).domain([0,10]);
-    trace("ticks :"+scale.ticks());
-    var color  = Color.linear().range([0xff,0x00ff00]).domain([0,10]);
+    var scale  = Scale.linear().range([1,50]).domain([0,10]);
+    var color  = Color.linear().range([0xff0000,0x00ff00]).domain([0,10]);
     for (i in 0...10){
       var style = new utility.Style();
       style.beginFill(color.value(i));
@@ -49,6 +50,7 @@ class Main extends Sprite {
   public function new () {
 
     super ();
+
 
     var hBox:HBox = new HBox();
     hBox.addChildren(Align.middle(getDifSzRcts()));
