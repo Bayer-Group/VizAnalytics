@@ -1,32 +1,37 @@
 package scale;
 class Color extends Scale {
-  var percent:Scale = Scale.linear();
+
   var colorOne:UInt = 0xFFFFFF;
   var colorTwo:UInt = 0x111111;
-  public function new(func:Dynamic->Dynamic) {
-    super(func);
+  var percent:Scale = Scale.linear().range([0,1]);
 
-    trace("\n\n set percent "+this.percent);
-  }
+  public function new(domain,range,clamp) {
+    super(domain,range,clamp);
 
-  public override function value(input:Dynamic):Dynamic {
-    var value = super.value(input);
-    var perc  = percent.value(input) / 100;
-    return getBetweenColourByPercent(perc,colorOne,colorTwo);
 
   }
-  public override function domain(domain:Array<Dynamic>):Scale {
-    this.percent.domain(domain);
-    return super.domain(domain);
-  }
 
-  public override function range(range:Array<Dynamic>):Scale {
-    colorOne = range[0];
-    colorTwo = range[1];
-    return super.range(range);
-  }
 
-  public function getBetweenColourByPercent(value:Float = 0.5 /* 0-1 */, highColor:UInt = 0xFFFFFF, lowColor:UInt = 0x000000):UInt {
+//  private function interpolateRgb(a:Dynamic, b:Dynamic):Dynamic -> Dynamic{
+//    var aRGB = a.toHex();
+//    var bRGB = b.toHex();
+//
+//    var ar = aRGB.red;
+//    var ag = aRGB.green;
+//    var ab = aRGB.blue;
+//    var br = bRGB.red - ar;
+//    var bg = bRGB.green - ag;
+//    var bb = bRGB.blue - ab;
+//    return function(t) {
+//      var r = Math.round(ar + (br * t));
+//      var g = Math.round(ag + (bg * t));
+//      var b = Math.round(ab + (bb * t));
+//      var rgb = new hxColorToolkit.spaces.RGB(r,g,b);
+//      return rgb.getColor();
+//    };
+//  }
+
+  private function getBetweenColourByPercent(value:Float = 0.5 /* 0-1 */, highColor:UInt = 0xFFFFFF, lowColor:UInt = 0x000000):UInt {
     var r:Float = highColor >> 16;
     var g:Float = highColor >> 8 & 0xFF;
     var b:Float = highColor & 0xFF;
@@ -37,11 +42,22 @@ class Color extends Scale {
 
     return (Std.int(r) << 16 | Std.int(g) << 8 | Std.int(b));
   }
-  public override function toString() {
-    return "\n***\nColor Scale  r: "+r+" d: "+d+"\n***";
+
+  private override function rescale(){
+    super.rescale();
+    percent.domain(d).clamp(c);
   }
-  public static override function linear():Color {return new Color(Scale.linearFunc);}
-  public static override function log():Color {return new Color(Scale.logrFunc);}
-  public static override function exp():Color {return new Color(Scale.expFunc);}
+
+  public override function value(input:Dynamic) :UInt{
+    var pVal = percent.value(input);
+    return getBetweenColourByPercent(pVal,r[0],r[1]);
+  }
+
+  public override function invert(x:UInt):Dynamic {
+    return input(x);
+  }
+  public static override function linear():Color {return new Color([0,1],[0xFF0000,0x00FF00],false);}
+//  public static override function log():Color {return new Color(Scale.logrFunc);}
+//  public static override function exp():Color {return new Color(Scale.expFunc);}
 
 }
