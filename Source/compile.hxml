@@ -2,9 +2,11 @@
 -main MainTest
 -lib openfl
 -lib lime
+-lib hxColorToolkit
 -cmd neko ../Test/maintest.n
 --next
 -js ../Test/maintest.js
 -main MainTest
 -lib phantomjs
+-lib hxColorToolkit
 -cmd phantomjs ../Test/maintest.js
