@@ -31,6 +31,53 @@ class Bounds {
     return children;
 
   }
+
+  public static function getBoundingRectangle(object:DisplayObject):Rectangle {
+    var rotation = object.rotation;
+    if (rotation < 0) {
+      rotation = 360 + rotation;
+    }
+
+    var position = new Point(object.x, object.y);
+
+    var className = getWellKnownTypeName(object);
+    trace("this is....:"+className);
+    if (className == "TextField") {
+      var txt:TextField = cast (object, TextField);
+      object.width  = txt.textWidth;
+      object.height = txt.textHeight;
+    }
+
+    if ((rotation > 0) && (rotation < 360)) {
+      if (rotation < 90) {
+        position.x -= object.height * Math.sin(rotation);
+      }
+      else if (rotation == 90) {
+        position.x -= object.width;
+      }
+      else if (rotation < 180) {
+        position.x -= object.width;
+        position.y -= object.width * Math.sin(rotation);
+      }
+      else if (rotation == 180) {
+        position.x -= object.width;
+        position.y -= object.height;
+      }
+      else if (rotation < 270) {
+        position.x -= object.height * Math.sin(rotation);
+        position.y -= object.height;
+      }
+      else if (rotation == 270) {
+        position.y -= object.height;
+      }
+      else {
+        position.y -= object.width * Math.sin(rotation);
+      }
+    }
+
+    return (new Rectangle(position.x, position.y, object.width, object.height));
+  }
+
   public static function getRelBoundingBox(child:DisplayObject):Rectangle{
     var className = getWellKnownTypeName(child);
 
@@ -40,6 +87,7 @@ class Bounds {
       case "TextField":
         var txt:TextField = cast (child, TextField);
         var p:Point = child.localToGlobal(new Point());
+        trace("\n\n*****\n\n",txt.width, txt.textWidth);
         childBB.setTo(p.x, p.y,txt.textWidth, txt.textHeight);
       case "Sprite"   :
         var p:Point = child.localToGlobal(new Point());
@@ -68,6 +116,21 @@ class Bounds {
       bounds.width  = Math.max(childBB.width  + childBB.x, bounds.width);
       bounds.height = Math.max(childBB.height + childBB.y, bounds.height);
     }
+    return bounds;
+  }
+  public static function getBoundingBox(displayObject:DisplayObject):Rectangle {
+    var bounds:Rectangle = new Rectangle();
+    var children = getChildren(displayObject);
+    if (children.length == 0)
+      bounds = getBoundingRectangle(displayObject);
+    else
+      for (child in children) {
+        var childBB = getBoundingRectangle(child);
+        bounds.x = Math.min(childBB.x,bounds.x);
+        bounds.y = Math.min(childBB.y,bounds.y);
+        bounds.width  = Math.max(childBB.width  + childBB.x, bounds.width);
+        bounds.height = Math.max(childBB.height + childBB.y, bounds.height);
+      }
     return bounds;
   }
 }

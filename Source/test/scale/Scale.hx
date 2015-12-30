@@ -12,6 +12,7 @@ class Scale extends haxe.unit.TestCase {
 
   }
 
+
   public function testDefualtLinear() {
     var scale = scale.Scale.linear();
 
@@ -78,5 +79,6 @@ class Scale extends haxe.unit.TestCase {
 #end
 
   }
+
 
 }
