@@ -8,6 +8,8 @@ Welcome to the VizAnalytics Readme!
  * `haxelib install lime`
  * `haxelib install openfl`
  * `haxelib run openfl setup` 
+ * `haxelib install hxColorToolkit`
+ * `haxelib install phantomjs`
  * To confirm that OpenFL is installed and working properly, try running the "openfl" command
   `openfl`  
 
