@@ -8,7 +8,7 @@
 	
 	<haxelib name="openfl" />
 	<haxelib name="actuate" />
-	<haxelib name="hxColorToolkit" />
+	<!--<haxelib name="hxColorToolkit" />-->
 
 	<assets path="Assets" rename="assets" />
 
