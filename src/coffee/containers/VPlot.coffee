@@ -1,9 +1,13 @@
 _ = require 'underscore'
 module.exports = class VPlot extends require './Plot'
 
-  constructor : (@yScale)->
+  constructor : (@children, @yScale)->
     console.log 'VPlot'
-    super(undefined, @yScale)
+    super(@children, undefined, @yScale)
+    update()
+    bounds = @getBounds()
+    @w = bounds.width
+    @h = bounds.height
 
 
 

@@ -1,27 +1,24 @@
 _ = require 'underscore'
 module.exports = class VBox extends require './Container'
-  @_spacing = 10
 
-  constructor : ()->
+
+  constructor : (children, @spacing = 10)->
     console.log 'VBox'
-    super()
+    @name = 'VBox'
+    super children
+    update @children, @spacing
+    bounds = @getBounds()
+    @w = bounds.width
+    @h = bounds.height
 
 
 
-  update = (that)->
+  update = (children, spacing)->
     shift = (m,d)=>
       d.y = if m is 0 then 0 else m
-      m += d.h + that._spacing
+      m += d.h + spacing
       m
-    _.reduce that.children, shift,0
-    that.getBounds()
+    _.reduce children, shift,0
 
-  spacing : (x)->
-    @_spacing = x
-    update(@)
-    @
 
-  addChildren : (children)->
-    super children
-    update @
 

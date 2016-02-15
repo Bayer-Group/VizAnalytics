@@ -1,10 +1,11 @@
 _ = require 'underscore'
 module.exports = class Container extends createjs.Container
 
-  constructor:()->
+  constructor:(children)->
     super()
-    @that = this
     @x = @y = @w = @h = 0
+    @that = this
+    @addChild children...
     console.log 'container'
 
   getBounds : ()->
@@ -13,13 +14,9 @@ module.exports = class Container extends createjs.Container
       @y = Math.min @y, d.y
       @w = Math.max @w, d.x + d.w
       @h = Math.max @h, d.y + d.h
+      console.log @w,@h,@y,@x
     new createjs.Rectangle @x,@w,@w,@h
 
-
-
-  addChildren :(children)->
-    _.each children, (d)=>
-      @.addChild d
 
 
 

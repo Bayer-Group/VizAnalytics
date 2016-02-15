@@ -3,7 +3,11 @@ module.exports = class HPlot extends require './Plot'
 
   constructor : (@xScale)->
     console.log 'HPlot'
-    super @xScale, undefined
+    super(@children, @xScale, undefined )
+    update()
+    bounds = @getBounds()
+    @w = bounds.width
+    @h = bounds.height
 
 
 

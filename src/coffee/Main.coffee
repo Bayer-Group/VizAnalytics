@@ -25,19 +25,19 @@ class Main
     canvas = document.getElementById canvasName
     stage = new createjs.Stage canvas
 
-    vplot = new Plot d3Scale.scaleLinear().domain([0,10]).range([1,200]), d3Scale.scaleLinear().domain([0,10]).range([1,200])
-    vplot.addChildrenWithValue createPlotDate()
+    vplot = new Plot createPlotDate(),  d3Scale.scaleLinear().domain([0,10]).range([1,200]), d3Scale.scaleLinear().domain([0,10]).range([1,200])
+
     console.log vplot.getBounds()
     stage.addChild vplot
-#    rect1 = new Rect 100,10, {beginFill:'lightblue'}
-#    rect2 = new Rect 200, 30, {beginFill:'red'}
+    rect1 = new Rect 100,10, {beginFill:'lightblue'}
+    rect2 = new Rect 200, 30, {beginFill:'red'}
 #    line1 = new Line 20,20, {beginStroke: 'lime', setStrokeStyle: 2}
 #    text = new Text()
 #    text.text = 'sucka!!!!'
 #    xAxis = new Axis()
 #    console.log xAxis.getBounds()
 #
-#    hbox  = new HBox()
+    hbox  = new HBox [rect1,rect2], 15
 #    vbox  = new VBox()
 #    hbox.spacing(1).addChildren Align.middle [text, rect2, line1, rect1]
 #    vbox.addChildren [hbox,xAxis]
@@ -45,7 +45,7 @@ class Main
 
 
 
-#    stage.addChild hbox
+    stage.addChild hbox
 
 
 

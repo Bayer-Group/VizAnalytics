@@ -1,10 +1,14 @@
 _ = require 'underscore'
 module.exports = class Plot extends require './Container'
   that = this
-  constructor : (@xScale,@yScale)->
+  constructor : (@children, @xScale, @yScale)->
     console.log 'Plot'
-    super()
+    super @children
     that = this
+    update()
+    bounds = @getBounds()
+    @w = bounds.width
+    @h = bounds.height
 
 
   update = ()->
@@ -28,7 +32,4 @@ module.exports = class Plot extends require './Container'
     bounds.height = if @yScale? then _.last @yScale.range() else bounds.height
     bounds
 
-  addChildrenWithValue : (children)->
-    @addChildren children
-    update()
 
